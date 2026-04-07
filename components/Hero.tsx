@@ -46,7 +46,7 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [charIndex, deleting, roleIndex]);
 
-  // Particle canvas
+  // Matrix binary rain canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -56,48 +56,46 @@ export default function Hero() {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    const particles: {
-      x: number; y: number; vx: number; vy: number; r: number; alpha: number;
-    }[] = Array.from({ length: 60 }, () => ({
-      x:     Math.random() * canvas.width,
-      y:     Math.random() * canvas.height,
-      vx:    (Math.random() - 0.5) * 0.4,
-      vy:    (Math.random() - 0.5) * 0.4,
-      r:     Math.random() * 2 + 0.5,
-      alpha: Math.random() * 0.4 + 0.1,
-    }));
+    const fontSize = 14;
+    const columns  = Math.floor(canvas.width / fontSize);
+    const drops: number[] = Array.from({ length: columns }, () =>
+      Math.random() * -canvas.height / fontSize
+    );
+
+    // Characters: binary digits + some matrix-style symbols
+    const chars = "01";
 
     let animId: number;
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > canvas.width)  p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      // Fade trail effect — dark overlay each frame
+      ctx.fillStyle = "rgba(11, 15, 25, 0.04)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(20, 184, 166, ${p.alpha})`;
-        ctx.fill();
-      });
+      ctx.font = `${fontSize}px monospace`;
 
-      // Draw lines between close particles
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(20, 184, 166, ${0.08 * (1 - dist / 120)})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
+      for (let i = 0; i < drops.length; i++) {
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // Head character — teal
+        ctx.fillStyle = "rgba(20, 184, 166, 0.45)";
+        ctx.fillText(char, x, y);
+
+        // Trail characters — dim teal
+        if (drops[i] > 1) {
+          const trailChar = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillStyle = "rgba(20, 184, 166, 0.08)";
+          ctx.fillText(trailChar, x, y - fontSize);
         }
+
+        // Reset drop to top when it goes off screen, with randomness
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+
+        drops[i] += 0.25 + Math.random() * 0.25;
       }
 
       animId = requestAnimationFrame(draw);
@@ -108,6 +106,13 @@ export default function Hero() {
     const onResize = () => {
       canvas.width  = window.innerWidth;
       canvas.height = window.innerHeight;
+      const newColumns = Math.floor(canvas.width / fontSize);
+      drops.length = newColumns;
+      for (let i = 0; i < newColumns; i++) {
+        if (drops[i] === undefined) {
+          drops[i] = Math.random() * -canvas.height / fontSize;
+        }
+      }
     };
     window.addEventListener("resize", onResize);
 
@@ -137,7 +142,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ background: "linear-gradient(135deg, #141B2D 0%, #1C2A44 50%, #0B0F19 100%)" }}
     >
-      {/* Particle background */}
+      {/* Matrix binary rain background */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
