@@ -86,8 +86,7 @@ export default function About() {
             animate={inView ? "show" : "hidden"}
           >
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-5">
-              I&apos;m an AI Engineer based in{" "}
-              <span className="text-text-primary font-medium">Lahore, Pakistan</span>, with
+              I&apos;m an AI Engineer with
               4+ years building production-grade AI systems. I specialize in turning
               cutting-edge LLM research into reliable, scalable software that ships.
             </p>
