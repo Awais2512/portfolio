@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     // Send email via Resend
     await resend.emails.send({
       from:    "Portfolio Contact <onboarding@resend.dev>",
-      to:      process.env.CONTACT_EMAIL ?? "awais@example.com",
+      to:      process.env.CONTACT_EMAIL ?? "awaisjutt2512@gmail.com",
       replyTo: email,
       subject: subject?.trim() || `New contact from ${name}`,
       html: `

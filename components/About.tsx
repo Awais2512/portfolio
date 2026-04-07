@@ -2,12 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const stats = [
-  { value: 2.5, suffix: "+", label: "Years Experience" },
-  { value: 10,  suffix: "+", label: "APIs Integrated" },
+  { value: 4,   suffix: "+", label: "Years Experience" },
+  { value: 50,  suffix: "+", label: "APIs Integrated" },
   { value: 90,  suffix: "%", label: "Automation Achieved" },
-  { value: 6,   suffix: "+", label: "Production Projects" },
+  { value: 10,  suffix: "+", label: "Production Systems" },
 ];
 
 function AnimatedCounter({
@@ -87,14 +88,14 @@ export default function About() {
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-5">
               I&apos;m an AI Engineer based in{" "}
               <span className="text-text-primary font-medium">Lahore, Pakistan</span>, with
-              2.5+ years building production-grade AI systems. I specialize in turning
+              4+ years building production-grade AI systems. I specialize in turning
               cutting-edge LLM research into reliable, scalable software that ships.
             </p>
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed mb-5">
               My work spans the full AI pipeline — from designing{" "}
               <span className="text-accent-primary font-medium">RAG architectures</span> and
               fine-tuning models, to orchestrating multi-agent systems and deploying them behind
-              production APIs. I&apos;ve integrated 10+ third-party APIs and built automation
+              production APIs. I&apos;ve integrated 50+ third-party APIs and built automation
               workflows achieving 90%+ reduction in manual work.
             </p>
             <p className="text-text-secondary text-base sm:text-lg leading-relaxed">
@@ -105,7 +106,7 @@ export default function About() {
             </p>
           </motion.div>
 
-          {/* Stats grid */}
+          {/* Photo + Stats */}
           <motion.div
             variants={{
               hidden: { opacity: 0, x: 30 },
@@ -113,19 +114,36 @@ export default function About() {
             }}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="grid grid-cols-2 gap-5"
+            className="flex flex-col items-center gap-8"
           >
-            {stats.map(({ value, suffix, label }) => (
-              <div
-                key={label}
-                className="card-base p-6 text-center hover:border-accent-primary/30 hover:accent-glow transition-all duration-300"
-              >
-                <div className="text-3xl sm:text-4xl font-extrabold text-accent-primary mb-1">
-                  <AnimatedCounter value={value} suffix={suffix} trigger={inView} />
-                </div>
-                <div className="text-text-secondary text-sm font-medium">{label}</div>
+            {/* Photo */}
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent-primary/20 via-accent-secondary/10 to-transparent blur-lg" />
+              <div className="relative w-56 h-56 sm:w-64 sm:h-64 rounded-2xl overflow-hidden border-2 border-accent-primary/20 shadow-xl">
+                <Image
+                  src="/images/awais.png"
+                  alt="Muhammad Awais"
+                  fill
+                  className="object-cover object-top"
+                  sizes="256px"
+                />
               </div>
-            ))}
+            </div>
+
+            {/* Stats grid */}
+            <div className="grid grid-cols-2 gap-4 w-full">
+              {stats.map(({ value, suffix, label }) => (
+                <div
+                  key={label}
+                  className="card-base p-5 text-center hover:border-accent-primary/30 hover:accent-glow transition-all duration-300"
+                >
+                  <div className="text-2xl sm:text-3xl font-extrabold text-accent-primary mb-1">
+                    <AnimatedCounter value={value} suffix={suffix} trigger={inView} />
+                  </div>
+                  <div className="text-text-secondary text-xs sm:text-sm font-medium">{label}</div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>

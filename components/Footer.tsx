@@ -9,9 +9,9 @@ export default function Footer() {
         </p>
         <div className="flex items-center gap-4">
           {[
-            { href: "https://github.com/muhammadawais",      icon: <FiGithub size={17} />,   label: "GitHub" },
-            { href: "https://linkedin.com/in/muhammadawais", icon: <FiLinkedin size={17} />, label: "LinkedIn" },
-            { href: "mailto:awais@example.com",              icon: <FiMail size={17} />,     label: "Email" },
+            { href: "https://github.com/Awais2512",      icon: <FiGithub size={17} />,   label: "GitHub" },
+            { href: "https://www.linkedin.com/in/muhammadawis/", icon: <FiLinkedin size={17} />, label: "LinkedIn" },
+            { href: "mailto:awaisjutt2512@gmail.com",              icon: <FiMail size={17} />,     label: "Email" },
           ].map(({ href, icon, label }) => (
             <a
               key={label}

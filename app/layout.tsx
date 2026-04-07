@@ -74,8 +74,8 @@ export default function RootLayout({
                 "AI Engineer building production-grade AI systems including LLMs, RAG pipelines, and multi-agent orchestration.",
               url: "https://muhammadawais.dev",
               sameAs: [
-                "https://github.com/muhammadawais",
-                "https://linkedin.com/in/muhammadawais",
+                "https://github.com/Awais2512",
+                "https://www.linkedin.com/in/muhammadawis/",
               ],
               address: {
                 "@type": "PostalAddress",

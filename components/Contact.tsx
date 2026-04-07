@@ -43,7 +43,7 @@ export default function Contact() {
   };
 
   const copyEmail = async () => {
-    await navigator.clipboard.writeText("awais@example.com");
+    await navigator.clipboard.writeText("awaisjutt2512@gmail.com");
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -217,7 +217,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="text-text-primary text-sm font-medium">Email</p>
-                  <p className="text-text-secondary text-xs">awais@example.com</p>
+                  <p className="text-text-secondary text-xs">awaisjutt2512@gmail.com</p>
                 </div>
               </div>
               <button
@@ -236,9 +236,9 @@ export default function Contact() {
               </p>
               <div className="flex gap-3">
                 {[
-                  { href: "https://github.com/muhammadawais",   icon: <FiGithub size={20} />,   label: "GitHub" },
-                  { href: "https://linkedin.com/in/muhammadawais", icon: <FiLinkedin size={20} />, label: "LinkedIn" },
-                  { href: "mailto:awais@example.com",            icon: <FiMail size={20} />,     label: "Email" },
+                  { href: "https://github.com/Awais2512",   icon: <FiGithub size={20} />,   label: "GitHub" },
+                  { href: "https://www.linkedin.com/in/muhammadawis/", icon: <FiLinkedin size={20} />, label: "LinkedIn" },
+                  { href: "mailto:awaisjutt2512@gmail.com",            icon: <FiMail size={20} />,     label: "Email" },
                 ].map(({ href, icon, label }) => (
                   <a
                     key={label}
