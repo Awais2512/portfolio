@@ -74,3 +74,78 @@ body {
     box-shadow: 0 0 20px rgba(20, 184, 166, 0.2);
   }
 }
+
+/* ===== Print Styles ===== */
+@media print {
+  /* Force backgrounds to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @page {
+    margin: 0;
+    size: A4;
+  }
+
+  /* Make all animated elements visible (Framer Motion hides them initially) */
+  [style*="opacity: 0"],
+  [style*="opacity:0"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Force all motion divs visible */
+  body * {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Hide fixed nav and canvas */
+  header[class*="fixed"],
+  canvas,
+  #reading-progress {
+    display: none !important;
+  }
+
+  /* Fix hero height — don't force full viewport */
+  #hero {
+    min-height: auto !important;
+    padding: 40px 0 !important;
+  }
+
+  /* Reduce section padding for print */
+  .section-padding {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+  }
+
+  /* Prevent empty page breaks */
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Cards — avoid breaking mid-card */
+  .card-base {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Hide interactive elements */
+  button,
+  [role="button"] {
+    display: none !important;
+  }
+
+  /* Ensure grid layouts don't overflow */
+  .grid {
+    display: block !important;
+  }
+
+  .grid > * {
+    margin-bottom: 16px !important;
+  }
+}
